@@ -1,7 +1,6 @@
-from tkinter import *
-from tkinter import ttk
 from Interfaz.Menu import *
-from Interfaz.Table import *
+from Interfaz.MostrarListados import *
+from Complementos.TableScroll import *
 
 class MenuGral:
 
@@ -35,13 +34,4 @@ class MenuGral:
         self.raiz.destroy()
 
     def listado_materias(self):
-        tablas = self.bd.getTablas()
-        raiz = Tk()
-        table = Table(raiz, ["Nro Registro", "Código de Materia", "Nombre","Nota 1C","Nota 2C", "Nota 3C"], column_minwidths=[None, None, None, None, None, None])
-        table.pack(expand=True, fill=X, padx=10, pady=10)
-
-        for materia in tablas[1]:
-            notas = materia.getNotas()
-            table.set_data([[str(materia.getCodigoAlumno()),str(materia.getCodigoMateria()),str(materia.getNombre()),str(notas[0]),str(notas[1]),str(notas[2])]])
-
-        raiz.mainloop()
+        listado = ListadoMaterias(self.raiz,self.bd)
