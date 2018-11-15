@@ -46,11 +46,12 @@ class ListadoAlumnos:
 
         for alumno in tablas[0]:
             fechas = alumno.getFechas()
-            fNac = '/'.join(str(v) for v in list(alumno.getFNac()))
-            fIngreso = '/'.join(str(v) for v in list(fechas[0]))
-            fEgreso = '/'.join(str(v) for v in list(fechas[1]))
-            userpass = alumno.getUserPass()
-            self.table.insert_row([alumno.getRegistro(),alumno.getNombre(),alumno.getApellido(),alumno.getDni(),alumno.getDireccion(),alumno.getTelefono(),alumno.getEmail(),fNac,alumno.getCurso(),fIngreso,fEgreso,userpass[0],userpass[1],alumno.getConcepto(),alumno.getInasistencias()])
+            if fechas[1] == (0,0,0):
+                fNac = '/'.join(str(v) for v in list(alumno.getFNac()))
+                fIngreso = '/'.join(str(v) for v in list(fechas[0]))
+                fEgreso = '/'.join(str(v) for v in list(fechas[1]))
+                userpass = alumno.getUserPass()
+                self.table.insert_row([alumno.getRegistro(),alumno.getNombre(),alumno.getApellido(),alumno.getDni(),alumno.getDireccion(),alumno.getTelefono(),alumno.getEmail(),fNac,alumno.getCurso(),fIngreso,fEgreso,userpass[0],userpass[1],alumno.getConcepto(),alumno.getInasistencias()])
 
         self.root.update()
         self.root.mainloop()
@@ -99,7 +100,6 @@ class ListadoCurso:
         self.table.place(x=40, y=100)
 
     def buscar(self):
-        errorcurso = False
         self.aviso.set("")
         if self.curso.get()<1 or self.curso.get()>6:
             self.labelaviso.configure(foreground="red")

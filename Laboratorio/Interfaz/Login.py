@@ -50,7 +50,7 @@ class Login:
             if usuario in acceso:
                 if acceso[usuario]==self.pword.get():
                     self.raiz.destroy()
-                    menu = Menu(self.bd)
+                    menu = MenuGral(self.bd)
                 else:
                     self.label4.configure(foreground = "red")
                     self.mensaje.set("Contraseña incorrecta")
@@ -62,7 +62,7 @@ class Login:
             if usuario in acceso:
                 if acceso[usuario] == self.pword.get():
                     self.raiz.destroy()
-                    menu = Menu(self.bd)
+                    menu = MenuGral(self.bd)
                 else:
                     self.label4.configure(foreground = "red")
                     self.mensaje.set("Contraseña incorrecta")
@@ -82,3 +82,4 @@ class Login:
             else:
                 self.label4.configure(foreground="red")
                 self.mensaje.set("Usuario incorrecto")
+

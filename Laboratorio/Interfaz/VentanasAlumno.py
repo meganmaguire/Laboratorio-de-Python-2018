@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk,font
+import time
 
 from Código.Alumno import Alumno
 from Código.Materia import Materia
@@ -116,6 +117,7 @@ class AltaAlumno:
     def registrar(self):
         registro = self.registro.get()
         tablas = self.bd.getTablas()
+        acceso = self.bd.getAcceso()
         repetido = False
         self.aviso.set("")
         for alumno in tablas[0]:
@@ -136,12 +138,15 @@ class AltaAlumno:
             fechas = (fingreso, fbaja)
             #carga los datos en el alumno
             alumno = Alumno(self.registro.get(),self.nombre.get(),self.apellido.get(),self.dni.get(),self.direccion.get(),self.telefono.get(),self.email.get(),fnac,self.curso.get(),fechas,(self.user.get(),self.pword.get()),self.concepto.get(),self.inasistencias.get(),[])
+            #crea el usuario
+            acceso["A-"+self.user.get()] = self.pword.get()
             #trae las tablas, las carga y se las setea a la bd
             tablas = self.bd.getTablas()
             listaMaterias = tablas[1].inicializarMaterias(self.registro.get())
             alumno.setMaterias(listaMaterias)
             tablas[0].setAlumno(alumno)
             self.bd.setTablas(tablas)
+            self.bd.setAcceso(acceso)
             self.labelaviso.configure(foreground="blue")
             self.aviso.set("Registro exitoso")
 
@@ -537,28 +542,27 @@ class ElimAlumno:
         registro = int(self.registro.get())
         self.aviso.set("")
         encontrado = False
-        i = 0
-        listaMaterias = []
         if registro == 0:
             self.labelaviso.configure(foreground="red")
             self.aviso.set("Ingrese un registro")
         else:
             tablas = self.bd.getTablas()
+            acceso = self.bd.getAcceso()
             for alumno in tablas[0]:
-                if alumno.getRegistro() == registro:
+                if alumno.getRegistro() == registro and alumno.getFechas()[1] == (0,0,0):
                     encontrado = True
-                    i = i+1
+                    fechas = alumno.getFechas()
+                    fechaActual = time.strftime("%d/%m/%y")
+                    listaaux = fechaActual.split("/")
+                    fbaja = (listaaux[0], listaaux[1], listaaux[2])
+                    fechas = (fechas[0],fbaja)
+                    alumno.setFechas(fechas)
+                    user = "A-"+alumno.getUserPass()[0]
+                    del acceso[user]
+                    self.bd.setTablas(tablas)
+                    self.labelaviso.configure(foreground="blue")
+                    self.aviso.set("Eliminación exitosa")
                     break
-                i = i+1
-            for materia in tablas[1]:
-                if materia.setCodigoAlumno() != registro :
-                    listaMaterias.append(materia)
-            if encontrado:
-                tablas[1].setLista(listaMaterias)
-                tablas = (tablas[0].getLista().pop(i),tablas[1])
-                self.bd.setTablas(tablas)
-                self.labelaviso.configure(foreground="blue")
-                self.aviso.set("Eliminación exitosa")
-            else:
+            if  not encontrado:
                 self.labelaviso.configure(foreground="red")
                 self.aviso.set("Registro inexistente")
