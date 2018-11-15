@@ -15,7 +15,7 @@ class MenuGral:
         self.btmaterias = ttk.Button(self.raiz, text="Listado de materias", padding=(5, 5), width=30, command=lambda: self.listado_materias())
         self.blegajo = ttk.Button(self.raiz, text="Legajo de alumno", padding=(5, 5), width=30, command=lambda: self.listar_legajo())
         self.breadmision = ttk.Button(self.raiz, text="Alumnos para readmisión", padding=(5, 5), width=30, command=lambda: self.listado_readmision())
-        self.bcurso = ttk.Button(self.raiz, text="Listado de alumnos por curso", padding=(5, 5), width=30)
+        self.bcurso = ttk.Button(self.raiz, text="Listado de alumnos por curso", padding=(5, 5), width=30, command=lambda: self.listar_curso())
         self.bsalir = ttk.Button(self.raiz, text="Salir", padding=(5, 5),command=quit)
         self.bvolver = ttk.Button(self.raiz, text="Volver", padding=(5, 5), command=lambda: self.volver())
 
@@ -44,3 +44,6 @@ class MenuGral:
 
     def listar_legajo(self):
         listado = ListarLegajo(self.raiz,self.bd)
+
+    def listar_curso(self):
+        listado = ListadoCurso(self.raiz,self.bd)

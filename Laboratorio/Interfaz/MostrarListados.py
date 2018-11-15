@@ -1,3 +1,4 @@
+import functools
 from tkinter import *
 from tkinter import ttk,font
 
@@ -5,6 +6,7 @@ from Complementos.TableScroll import *
 
 
 class ListadoMaterias:
+
     def __init__(self,padre,bd):
         self.root = Toplevel(padre)
         self.root.title("Listado de Materias")
@@ -29,6 +31,7 @@ class ListadoMaterias:
         self.root.mainloop()
 
 class ListadoAlumnos:
+
     def __init__(self,padre,bd):
         self.root = Toplevel(padre)
         self.root.title("Listado de Alumnos")
@@ -53,6 +56,7 @@ class ListadoAlumnos:
         self.root.mainloop()
 
 class ListadoReadmisiones:
+
     def __init__(self,padre,bd):
         self.root = Toplevel(padre)
         self.root.title("Listado de Readmisiones")
@@ -71,21 +75,48 @@ class ListadoReadmisiones:
         self.root.mainloop()
 
 class ListadoCurso:
+
     def __init__(self,padre,bd):
-        self.root = Toplevel(padre)
-        self.root.title("Listado por Curso")
+        self.raiz = Toplevel(padre)
+        self.raiz.title("Listado por Curso")
+        self.raiz.geometry("400x550")
         self.bd = bd
         negrita = font.Font(weight='bold', size=10)
 
         self.curso = IntVar()
+        self.aviso = StringVar()
         self.labelcurso = ttk.Label(self.raiz, text="Curso", font=negrita, padding=(5, 5))
-        self.fieldcurso = ttk.Entry(self.raiz, textvariable=self.curso, width=25)
+        self.fieldcurso = ttk.Entry(self.raiz, textvariable=self.curso, width=15)
 
-        self.table = Table(self.root,["Apellido","Nombre","DNI","Nro de Registro"],column_minwidths=[None,None,None,None])
+        self.labelaviso = ttk.Label(self.raiz, textvariable=self.aviso, font=negrita, padding=(5, 5))
+        self.bBuscar = ttk.Button(self.raiz, text="Buscar", padding=(5, 5), command=lambda: self.buscar())
+        self.table = Table(self.raiz,["Apellido","Nombre","DNI","Nro de Registro"],column_minwidths=[None,None,None,None])
         self.table.pack(expand=True, fill=X, padx=10, pady=10)
+
+        self.labelcurso.place(x=40, y=40)
+        self.fieldcurso.place(x=100, y=42)
+        self.bBuscar.place(x=250, y=40)
+        self.table.place(x=40, y=100)
+
+    def buscar(self):
+        errorcurso = False
+        self.aviso.set("")
+        if self.curso.get()<1 or self.curso.get()>6:
+            self.labelaviso.configure(foreground="red")
+            self.aviso.set("Curso erróneo")
+        else:
+            tablas = self.bd.getTablas()
+            listaordenada = list(functools.reduce(sortAlf,tablas[0],[]))
+            listamap = list(map(lambda x :[x.getApellido(),x.getNombre(),x.getDni(),x.getRegistro()], listaordenada))
+
+            for alumno in listamap:
+                self.table.insert_row([alumno[0],alumno[1],alumno[2],alumno[3]])
+            self.raiz.update()
+
 
 
 class ListarLegajo:
+
     def __init__(self,padre,bd):
         self.raiz = Toplevel(padre)
         self.raiz.resizable(0,0)
@@ -254,3 +285,12 @@ class ListarLegajo:
             if not encontrado:
                 self.labelaviso.configure(foreground="red")
                 self.aviso.set("Registro inexistente")
+
+
+def sortAlf(lista,e):
+    i = 0
+    n = len(lista)
+    while i < n and e.getApellido().upper() > lista[i].getApellido().upper():
+        i = i + 1
+    lista.insert(i,e)
+    return lista

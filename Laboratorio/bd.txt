@@ -4,7 +4,9 @@ P-Admin,Ad1
 T_Alumnos
 T_Materias
 
-3027316,Megan,Maguire,39490591,Chacabuco 1174,2664828390,megan@gmail.com,13-3-1996,2,1-1-2013,0-0-0,Megan,megan,5,Aceptable
+3027316,Megan,Maguire,39490591,Chacabuco 1174,2664828390,megan@gmail.com,13-3-1996,2,1-1-2013,0-0-0,Megan,megan,Aceptable,5
+3322233,Maria,Flores,11222333,Sarmiento 122,12333223,maria@gmail.com,15-6-1998,2,14-3-2014,0-0-0,maria,maria,Aceptable,5
+3211122,Marcelo,Guzmán,32333444,Las Heras 334,343445542,marce@gmail.com,30-5-1997,2,12-4-2015,0-0-0,marcelo,marcelo,Aceptable,2
 
 3027316,1,Matemática,0-0-0
 3027316,2,Lengua,6-8-9
@@ -15,3 +17,21 @@ T_Materias
 3027316,7,Historia,0-0-0
 3027316,8,Geografía,0-0-0
 3027316,9,Computación,0-0-0
+3322233,1,Matemática,0-0-0
+3322233,2,Lengua,0-0-0
+3322233,3,Física,0-0-0
+3322233,4,Química,0-0-0
+3322233,5,Biología,0-0-0
+3322233,6,Ética,0-0-0
+3322233,7,Historia,0-0-0
+3322233,8,Geografía,0-0-0
+3322233,9,Computación,0-0-0
+3211122,1,Matemática,0-0-0
+3211122,2,Lengua,0-0-0
+3211122,3,Física,0-0-0
+3211122,4,Química,0-0-0
+3211122,5,Biología,0-0-0
+3211122,6,Ética,0-0-0
+3211122,7,Historia,0-0-0
+3211122,8,Geografía,0-0-0
+3211122,9,Computación,0-0-0

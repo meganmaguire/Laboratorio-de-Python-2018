@@ -218,35 +218,18 @@ class Inicializar:
                 #lee la tabla alumnos
                 try:
                     aux = linea.split(",")
+                    fechaAux1 = aux[7].split("-")
+                    fechaNac = (int(fechaAux1[0]),int(fechaAux1[1]),int(fechaAux1[2]))
+                    fechaAux2 = aux[9].split("-")
+                    fechaAlta = (int(fechaAux2[0]), int(fechaAux2[1]), int(fechaAux2[2]))
+                    fechaAux3 = aux[10].split("-")
+                    fechaBaja = (int(fechaAux3[0]), int(fechaAux3[1]), int(fechaAux3[2]))
+                    fechas = (fechaAlta, fechaBaja)
+                    userpass = (aux[11], aux[12])
 
-                    alumno.setRegistro(int(aux[0]))
-                    alumno.setNombre(aux[1])
-                    alumno.setApellido(aux[2])
-                    alumno.setDni(int(aux[3]))
-                    alumno.setDireccion(aux[4])
-                    alumno.setTelefono(int(aux[5]))
-                    alumno.setEmail(aux[6])
-
-                    fechaAux = aux[7].split("-")
-                    fechaNac = (int(fechaAux[0]),int(fechaAux[1]),int(fechaAux[2]))
-
-                    alumno.setFNac(fechaNac)
-                    alumno.setCurso(int(aux[8]))
-
-                    fechaAux = aux[9].split("-")
-                    fechaAlta = (int(fechaAux[0]), int(fechaAux[1]), int(fechaAux[2]))
-                    fechaAux = aux[10].split("-")
-                    fechaBaja = (int(fechaAux[0]), int(fechaAux[1]), int(fechaAux[2]))
-                    fechas = (fechaAlta,fechaBaja)
-
-                    alumno.setFechas(fechas)
-
-                    userpass = (aux[11],aux[12])
-
-                    alumno.setUserPass(userpass)
-                    alumno.setInasistencias(int(aux[13]))
-                    alumno.setConcepto(aux[14])
-
+                    alumno = Alumno(int(aux[0]), aux[1], aux[2], int(aux[3]),
+                                    aux[4], int(aux[5]), aux[6], fechaNac, int(aux[8]),
+                                    fechas, userpass,aux[13],int(aux[14]), [])
                     listaAlumno.append(alumno)
                     linea = arch.readline().rstrip('\n')
                 except EOFError:
@@ -342,7 +325,7 @@ class Backup:
                     alumno.getDireccion() + "," + str(alumno.getTelefono()) + "," + alumno.getEmail() + "," + str(fechaNac[0]) + "-" + str(fechaNac[1]) + "-" + \
                     str(fechaNac[2]) + "," + str(alumno.getCurso()) + "," + str(fechaAlta[0]) + "-" + str(fechaAlta[1]) + "-" + \
                     str(fechaAlta[2]) + "," + str(fechaBaja[0]) + "-" + str(fechaBaja[1]) + "-" + str(fechaBaja[2]) + "," + user + "," +\
-                    pword + "," + str(alumno.getInasistencias()) + "," + alumno.getConcepto()
+                    pword + "," + alumno.getConcepto()+ "," + str(alumno.getInasistencias())
             arch.write(linea+"\n")
         # Escribe un salto de línea para diferenciar donde empieza una tabla y termina la otra
         arch.write("\n")
