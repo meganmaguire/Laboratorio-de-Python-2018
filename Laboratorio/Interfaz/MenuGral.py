@@ -11,10 +11,10 @@ class MenuGral:
         self.raiz.geometry("320x300")
         self.bd=bd
 
-        self.btalumnos = ttk.Button(self.raiz, text="Listado de alumnos", padding=(5, 5), width=30)
+        self.btalumnos = ttk.Button(self.raiz, text="Listado de alumnos", padding=(5, 5), width=30, command=lambda: self.listado_alumnos())
         self.btmaterias = ttk.Button(self.raiz, text="Listado de materias", padding=(5, 5), width=30, command=lambda: self.listado_materias())
-        self.blegajo = ttk.Button(self.raiz, text="Legajo de alumno", padding=(5, 5), width=30)
-        self.breadmision = ttk.Button(self.raiz, text="Alumnos para readmisión", padding=(5, 5), width=30)
+        self.blegajo = ttk.Button(self.raiz, text="Legajo de alumno", padding=(5, 5), width=30, command=lambda: self.listar_legajo())
+        self.breadmision = ttk.Button(self.raiz, text="Alumnos para readmisión", padding=(5, 5), width=30, command=lambda: self.listado_readmision())
         self.bcurso = ttk.Button(self.raiz, text="Listado de alumnos por curso", padding=(5, 5), width=30)
         self.bsalir = ttk.Button(self.raiz, text="Salir", padding=(5, 5),command=quit)
         self.bvolver = ttk.Button(self.raiz, text="Volver", padding=(5, 5), command=lambda: self.volver())
@@ -35,3 +35,12 @@ class MenuGral:
 
     def listado_materias(self):
         listado = ListadoMaterias(self.raiz,self.bd)
+
+    def listado_alumnos(self):
+        listado = ListadoAlumnos(self.raiz,self.bd)
+
+    def listado_readmision(self):
+        listado = ListadoReadmisiones(self.raiz,self.bd)
+
+    def listar_legajo(self):
+        listado = ListarLegajo(self.raiz,self.bd)
